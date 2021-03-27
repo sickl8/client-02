@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script>
+		const Http = new XMLHttpRequest();
+		const url='https://gota.io/web/';
+		Http.open("GET", url);
+		Http.setRequestHeader('Access-Control-Allow-Origin', '*');
+		Http.send();
+
+		Http.onreadystatechange = (e) => {
+		console.log(Http.responseText)
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+	"name": "Gota.io Feeder",
+	"description": "Enjoy!",
+	"version": "1.0",
+	"manifest_version": 2,
+	"background": {
+		"scripts": ["background.js", "popup.js"]
+	},
+	"permissions": [
+		"declarativeContent",
+		"storage",
+		"activeTab",
+		"webRequestBlocking",
+		"webRequest",
+		"http://*/",
+		"https://*/",
+		"tabs"
+	],
+	"browser_action": {
+		"default_popup" : "popup.html",
+		"default_icon": {
+			"16": "images/gota_16.png",
+			"32": "images/gota_32.png",
+			"48": "images/gota_48.png",
+			"128": "images/gota_128.png"
+		}
+	},
+	"icons": {
+		"16": "/images/gota_16.png",
+		"32": "/images/gota_32.png",
+		"48": "/images/gota_48.png",
+		"128": "/images/gota_128.png"
+	},
+	"web_accessible_resources": [ "replaced.js", "replaced_main.js", "replaced_bots.js" ]
+}
