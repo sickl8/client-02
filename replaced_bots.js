@@ -3,6 +3,13 @@ var version, showSideMenu, hideSideMenu;
 (function () {
 	console.clear();
 	console.log('loaded replaced_bots.js!');
+	const coms_channel = new BroadcastChannel('gotaXY');
+	var data = { px: 0, py: 0 };
+	coms_channel.addEventListener ('message', (event) => {
+		console.log('received message');
+		console.log(event.data)
+		data = event.data;
+	});
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) { 
         if (!_0xFF79) {
             return
@@ -561,7 +568,12 @@ var version, showSideMenu, hideSideMenu;
                 if (!_0x11752.mouseFrozen) {
                     var _0xFFC3 = _0x112FC.pivot.x - (_0x11708.stage.position.x / _0x11752.scale) + ((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale);
                     var _0xFFE8 = _0x112FC.pivot.y - (_0x11708.stage.position.y / _0x11752.scale) + ((_0x11752.mouseRawY * _0x114B8.resolution) / _0x11752.scale);
-                    _0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
+					var time = new Date();
+					if (time.getMilliseconds() % 15 == 0)
+					{
+						console.log()
+					}
+					_0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
                 }
             };
             if (!_0x11493.cHideMinimap) {
@@ -1151,7 +1163,7 @@ var version, showSideMenu, hideSideMenu;
 						if (_0xFF9E.playerId > 0)
 							_0xFF9E.persistentPlayerId = _0xFF9E.playerId;
 						// console.log(_0x1000D);
-						print_playerid(_0xFF9E.playerId, 1143);
+						// print_playerid(_0xFF9E.playerId, 1143);
                         _0x1000D.offset += 2;
                         break;
                     case 3:
@@ -1269,7 +1281,7 @@ var version, showSideMenu, hideSideMenu;
             this.playerId = _0xFF2F.getUint16(_0xFF2F.offset, true);
 			if (this.playerId > 0)
 				this.persistentPlayerId = this.playerId;
-			print_playerid(this.playerId, 1259);
+			// print_playerid(this.playerId, 1259);
             _0xFF2F.offset += 2 + 1;
             this.handleUpdateBorder(_0xFF2F);
             this.serverData.maxCells = _0xFF2F.getUint16(_0xFF2F.offset, true);
@@ -1422,7 +1434,7 @@ var version, showSideMenu, hideSideMenu;
             _0x10110.dataset.playerId = _0x10135;
 			if (_0x10135 > 0)
 				_0x10110.dataset.persistentPlayerId = _0x10135;
-			print_playerid(_0x10135, 1410);
+			// print_playerid(_0x10135, 1410);
             _0x10110.style.color = _0x100EB;
             _0x10110.className = "chat-name";
             _0x10110.oncontextmenu = _0x10385;
@@ -1463,14 +1475,14 @@ var version, showSideMenu, hideSideMenu;
             _0x10057.appendChild(_0x101A4);
             _0xFF9E(_0xFFE8, _0x10057)
         };
-		function print_playerid(pid, line) {
-			if (pid)
-			{
-				console.log('playerId = ' + pid + ', line: ' + line);
-				console.log(_0x11752.bucket);
-				console.log(new Error().stack);
-			}
-		}
+		// function print_playerid(pid, line) {
+		// 	if (pid)
+		// 	{
+		// 		console.log('playerId = ' + pid + ', line: ' + line);
+		// 		console.log(_0x11752.bucket);
+		// 		console.log(new Error().stack);
+		// 	}
+		// }
         _0x10541.prototype.handleWhisper = function (_0x10135) {
             var _0x10057 = _0x11596(_0x11933(_0x10135)) || "An unnamed cell";
             var _0x100C6 = _0x10135.getUint16(_0x10135.offset, true);
@@ -1490,7 +1502,7 @@ var version, showSideMenu, hideSideMenu;
             _0x100EB.dataset.playerId = _0x100C6;
 			if (_0x100C6 > 0)
 				_0x100EB.dataset.persistentPlayerId = _0x100C6;
-			print_playerid(_0x100C6, 1472);
+			// print_playerid(_0x100C6, 1472);
             _0x100EB.style.color = _0x1007C;
             _0x100EB.className = "chat-name";
             _0x100EB.oncontextmenu = _0x10385;
@@ -1503,7 +1515,7 @@ var version, showSideMenu, hideSideMenu;
             _0x10032.dataset.playerId = _0x1000D;
 			if (_0x1000D > 0)
 				_0x10032.dataset.persistentPlayerId = _0x1000D;
-			print_playerid(_0x1000D, 1483);
+			// print_playerid(_0x1000D, 1483);
             _0x10032.style.color = _0xFFE8;
             _0x10032.className = "chat-name";
             _0x10032.oncontextmenu = _0x10385;
@@ -2671,9 +2683,9 @@ var version, showSideMenu, hideSideMenu;
                 this.bucket[_0xFF2F.id] = _0xFF2F
             };
             this.remove = function (_0xFF2F) {
-				console.log('removing: ' + this.bucket[_0xFF2F]);
-				console.log('while bucket:');
-				console.log(this.bucket);
+				// console.log('removing: ' + this.bucket[_0xFF2F]);
+				// console.log('while bucket:');
+				// console.log(this.bucket);
                 this.bucket[_0xFF2F].onDelete();
                 delete this.bucket[_0xFF2F]
             };
@@ -5448,7 +5460,7 @@ var version, showSideMenu, hideSideMenu;
                 var _0x1000D = _0xFF79 - _0x10057;
                 var _0x10032 = _0xFF9E - 5;
                 _0xFF54.fillText(_0xFFE8, _0x1000D, _0x10032)
-            }
+			}
 			if (!document.getElementById("playerX"))
 			{
 				var newParagraph0 = document.createElement("p");
@@ -5459,32 +5471,75 @@ var version, showSideMenu, hideSideMenu;
 				var newSpan2 = document.createElement("span");
 				var newParagraph3 = document.createElement("p");
 				var newSpan3 = document.createElement("span");
+				var newParagraph4 = document.createElement("p");
+				var newSpan4 = document.createElement("span");
+				var newParagraph5 = document.createElement("p");
+				var newSpan5 = document.createElement("span");
+				var newParagraph6 = document.createElement("p");
+				var newSpan6 = document.createElement("span");
+				var newParagraph7 = document.createElement("p");
+				var newSpan7 = document.createElement("span");
 				newParagraph0.innerHTML = "Player X:";
 				newParagraph1.innerHTML = "Player Y:";
 				newParagraph2.innerHTML = "Mouse X:";
 				newParagraph3.innerHTML = "Mouse Y:";
+				newParagraph4.innerHTML = "ServerIP:";
+				newParagraph5.innerHTML = "ServerName:";
+				newParagraph6.innerHTML = "MainTabX:";
+				newParagraph7.innerHTML = "MainTabY:";
 				newSpan0.appendChild(document.createTextNode("0"));
 				newSpan1.appendChild(document.createTextNode("0"));
 				newSpan2.appendChild(document.createTextNode("0"));
 				newSpan3.appendChild(document.createTextNode("0"));
+				newSpan4.appendChild(document.createTextNode("?"));
+				newSpan5.appendChild(document.createTextNode("?"));
+				newSpan6.appendChild(document.createTextNode("0"));
+				newSpan7.appendChild(document.createTextNode("0"));
 				newSpan0.id = "playerX";
 				newSpan1.id = "playerY";
 				newSpan2.id = "mouseX";
 				newSpan3.id = "mouseY";
+				newSpan4.id = "servIP";
+				newSpan5.id = "srvName";
+				newSpan6.id = "mainX";
+				newSpan7.id = "mainY";
 				newParagraph0.appendChild(newSpan0);
 				newParagraph1.appendChild(newSpan1);
 				newParagraph2.appendChild(newSpan2);
 				newParagraph3.appendChild(newSpan3);
+				newParagraph4.appendChild(newSpan4);
+				newParagraph5.appendChild(newSpan5);
+				newParagraph6.appendChild(newSpan6);
+				newParagraph7.appendChild(newSpan7);
 				var insertafter = document.getElementById("score-panel");
 				insertafter.appendChild(newParagraph0);
 				insertafter.appendChild(newParagraph1);
 				insertafter.appendChild(newParagraph2);
 				insertafter.appendChild(newParagraph3);
+				insertafter.appendChild(newParagraph4);
+				insertafter.appendChild(newParagraph5);
+				insertafter.appendChild(newParagraph6);
+				insertafter.appendChild(newParagraph7);
+				// coms_channel.addEventListener ('message', (event) => {
+				// 	console.log('received message');
+				// 	console.log(event.data)
+				// 	data = event.data;
+				// });
 			}
+			// coms_channel.addEventListener ('message', (event) => {
+			// 	console.log('received message');
+			// 	console.log(event.data)
+			// 	data = event.data;
+			// });
 			$("#playerX").text(_0x11752.centerX);
 			$("#playerY").text(_0x11752.centerY);
 			$("#mouseX").text(_0x11752.mouseRawX);
 			$("#mouseY").text(_0x11752.mouseRawY);
+			$("#servIP").text(_0x11752.currentServer);
+			$("#srvName").text(_0x11752.currentServerName);
+			$("#mainX").text(data.px);
+			$("#mainY").text(data.py);
+
 			// console.log(_0x11752.x);
 			// console.log(_0x11752.y);
 			// console.log('score-panel:');
@@ -5518,7 +5573,7 @@ var version, showSideMenu, hideSideMenu;
             // _0x10825.minimapCoords = $("#minimap-coordinates");
             // _0x10825.partyPanel = _0x11674;
 			var time = new Date();
-			if (time.getMilliseconds() == 0)
+			if (time.getMilliseconds() % 15 == 0)
 				console.log(_0x11752);
 			// if (time.getSeconds() % 10 == 0)
 			// 	console.clear();
