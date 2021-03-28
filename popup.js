@@ -27,6 +27,13 @@ window.addEventListener('DOMContentLoaded', function() {
 	link1.addEventListener('click', function() {
 		chrome.storage.sync.set({"LBC": "B"});
 		var newURL1 = "https://gota.io/web/";
-		chrome.tabs.create({ url: newURL1, active: false });
+		chrome.windows.getCurrent(
+			function(window){
+				chrome.windows.create({ url: newURL1, type: 'popup'});
+				chrome.windows.update(window.id, {focused:true});
+			}
+		);
 	});
 });
+
+// chrome.windows.update(window.id, {focused:true})
