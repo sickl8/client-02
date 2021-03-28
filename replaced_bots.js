@@ -5,10 +5,21 @@ var version, showSideMenu, hideSideMenu;
 	console.log('loaded replaced_bots.js!');
 	const coms_channel = new BroadcastChannel('gotaXY');
 	var data = { px: 0, py: 0 };
+	var DoA = "dead";
+	var servInfo;
 	coms_channel.addEventListener ('message', (event) => {
-		console.log('received message');
-		console.log(event.data)
-		data = event.data;
+		var time = new Date();
+		if (time.getMilliseconds() % 15 == 0)
+		{
+			console.log('received message');
+			console.log(event.data);
+		}	
+		if (event.data.type == "XY")
+			data = event.data.data;
+		else if (event.data.type == "state")
+			DoA = event.data.data;
+		else if (event.data.type == "servInfo")
+			servInfo = event.data.data;
 	});
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) { 
         if (!_0xFF79) {
@@ -568,12 +579,13 @@ var version, showSideMenu, hideSideMenu;
                 if (!_0x11752.mouseFrozen) {
                     var _0xFFC3 = _0x112FC.pivot.x - (_0x11708.stage.position.x / _0x11752.scale) + ((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale);
                     var _0xFFE8 = _0x112FC.pivot.y - (_0x11708.stage.position.y / _0x11752.scale) + ((_0x11752.mouseRawY * _0x114B8.resolution) / _0x11752.scale);
-					var time = new Date();
-					if (time.getMilliseconds() % 15 == 0)
-					{
-						console.log()
-					}
-					_0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
+					// var time = new Date();
+					// if (time.getMilliseconds() % 15 == 0)
+					// {
+					// 	console.log()
+					// }
+					// _0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
+					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py))
                 }
             };
             if (!_0x11493.cHideMinimap) {
@@ -722,6 +734,8 @@ var version, showSideMenu, hideSideMenu;
             }
         };
         _0x10541.prototype.play = function () {
+			console.log("_0x11B83 = :");
+			console.log(_0x11B83);
             if (_0x11B83 == null) {
                 this.selfMsg("No server selected!");
                 return
@@ -3516,14 +3530,17 @@ var version, showSideMenu, hideSideMenu;
             $("#btn-play").on("click", function () {
 				console.log('clicked #btn-play');
                 if (_0x11B83 == null || Date.now() < _0x10800) {
+					console.log('here');
                     return
                 };
                 if (Object.keys(_0x11752.myCells).length != 0 && this.currentServerName == _0x11B83.name) {
+					console.log('here');
                     _0x10D59(_0x11321);
                     return
                 };
                 _0x11752.spectate = false;
                 if (_0x11F45.incrementPlay() && typeof adplayer != "undefined") {
+					console.log('here');
                     aiptag.cmd.player.push(function () {
                         adplayer.startPreRoll()
                     });
@@ -3531,6 +3548,7 @@ var version, showSideMenu, hideSideMenu;
                     _0x10D34();
                     _0x10800 = Date.now() + 2000
                 } else {
+					console.log('here');
                     _0x11752.play()
                 }
             });
@@ -5107,14 +5125,14 @@ var version, showSideMenu, hideSideMenu;
             }
         }
 
-        function _0x11C17(_0xFF79, _0xFF2F, _0xFFC3, _0xFF54, _0xFFE8, _0x1000D, _0xFF9E) { 
-            this.name = _0xFF79;
-            this.ip = _0xFF2F;
-            this.players = _0xFFC3;
-            this.mode = _0xFF54;
-            this.region = _0xFFE8;
+        function _0x11C17(serverName, serverIP, numPlayers, gameMode, serverRegion, usesSSL, _0xFF9E) { 
+            this.name = serverName;
+            this.ip = serverIP;
+            this.players = numPlayers;
+            this.mode = gameMode;
+            this.region = serverRegion;
             this.playersCurrent = 0;
-            this.ssl = _0x1000D;
+            this.ssl = usesSSL;
             this.order = _0xFF9E
         }
 
@@ -5539,12 +5557,14 @@ var version, showSideMenu, hideSideMenu;
 			$("#srvName").text(_0x11752.currentServerName);
 			$("#mainX").text(data.px);
 			$("#mainY").text(data.py);
-
+			// var time = new Date();
+			// if (time.getMilliseconds() % 15 == 0)
+			// 	console.log(_0x11752.playerRegistry.getPlayerById(_0x11752.playerId));
 			// console.log(_0x11752.x);
 			// console.log(_0x11752.y);
 			// console.log('score-panel:');
 			// console.log(document.getElementById("score-panel"));
-			func();
+			// func();
         }
 
 		function func() {
@@ -5572,9 +5592,9 @@ var version, showSideMenu, hideSideMenu;
             // _0x10825.playerCellCount = 0;
             // _0x10825.minimapCoords = $("#minimap-coordinates");
             // _0x10825.partyPanel = _0x11674;
-			var time = new Date();
-			if (time.getMilliseconds() % 15 == 0)
-				console.log(_0x11752);
+			// var time = new Date();
+			// if (time.getMilliseconds() % 15 == 0)
+			// 	console.log(_0x11752);
 			// if (time.getSeconds() % 10 == 0)
 			// 	console.clear();
 			// chrome.storage.sync.get("color", ({ color }) => {

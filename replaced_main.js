@@ -711,6 +711,8 @@ var version, showSideMenu, hideSideMenu;
             }
         };
         _0x10541.prototype.play = function () {
+			console.log('_0x11B83 = :');
+			console.log(_0x11B83);
             if (_0x11B83 == null) {
                 this.selfMsg("No server selected!");
                 return
@@ -728,8 +730,8 @@ var version, showSideMenu, hideSideMenu;
             _0x11D3F();
 			_0x10D59(_0x11321);
             ga("send", "event", "Game", "webMenu", "Play");
-			console.log('play() was called');
-			console.log(this);
+			// console.log('play() was called');
+			// console.log(this);
         };
         _0x10541.prototype.spec = function () {
             if (_0x11B83 == null) {
@@ -5507,9 +5509,20 @@ var version, showSideMenu, hideSideMenu;
 			$("#srvName").text(_0x11752.currentServerName);
 			data.px = _0x11752.centerX;
 			data.py = _0x11752.centerY;
-			console.log('sending data:');
-			console.log(data);
-			coms_channel.postMessage(data);
+			var playerState;
+			var playerSelf;
+			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
+			if (playerSelf.id == 0)
+				playerState = "dead";
+			else
+				playerState = "alive";
+			postMessage("XY", data);
+			postMessage("servInfo", _0x11B83);
+			postMessage("state", playerState);
+			// console.log('sending data:');
+			// console.log(data);
+			// var message = { type: "XY", data: data}
+			// coms_channel.postMessage(message);
 			// localStorage.setItem('server-ip')
 			// console.log(_0x11752.x);
 			// console.log(_0x11752.y);
@@ -5517,6 +5530,11 @@ var version, showSideMenu, hideSideMenu;
 			// console.log(document.getElementById("score-panel"));
 			func();
         }
+
+		function postMessage(typE, datA) {
+			var message = { type: typE, data: datA}
+			coms_channel.postMessage(message);
+		}
 
 		function func() {
 			// _0x101EE = document.getElementById("canvas");
@@ -5542,10 +5560,12 @@ var version, showSideMenu, hideSideMenu;
             // _0x10825.spectatorCount = $("#spectatorCount");
             // _0x10825.playerCellCount = 0;
             // _0x10825.minimapCoords = $("#minimap-coordinates");
-            // _0x10825.partyPanel = _0x11674;
-			var time = new Date();
-			if (time.getMilliseconds() % 15 == 0)
-				console.log(_0x11752);
+			// _0x10825.partyPanel = _0x11674;
+			
+			// var time = new Date();
+			// if (time.getMilliseconds() % 15 == 0)
+			// 	console.log(_0x11752);
+			
 			// if (time.getSeconds() % 10 == 0)
 			// 	console.clear();
 			// chrome.storage.sync.get("color", ({ color }) => {
