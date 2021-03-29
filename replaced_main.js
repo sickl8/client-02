@@ -3507,6 +3507,7 @@ var version, showSideMenu, hideSideMenu;
                 _0x11BA8(_0xFF2F)
             });
             $("#btn-play").on("click", function () {
+				postMessage("play", true);
 				console.log('clicked #btn-play');
                 if (_0x11B83 == null || Date.now() < _0x10800) {
                     return
@@ -5519,6 +5520,7 @@ var version, showSideMenu, hideSideMenu;
 			postMessage("XY", data);
 			postMessage("servInfo", _0x11B83);
 			postMessage("state", playerState);
+			postMessage("play", false);
 			// console.log('sending data:');
 			// console.log(data);
 			// var message = { type: "XY", data: data}

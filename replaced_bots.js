@@ -5,7 +5,22 @@ var version, showSideMenu, hideSideMenu;
 	console.log('loaded replaced_bots.js!');
 	const coms_channel = new BroadcastChannel('gotaXY');
 	var data = { px: 0, py: 0 };
+	var oldDoA = "dead";
 	var DoA = "dead";
+	var clickedPlay = {
+		aInternal: false,
+		aListener:	function(val) {},
+					set a(val) {
+						this.aInternal = val;
+						this.aListener(val);
+					},
+					get a() {
+						return this.aInternal;
+					},
+		registerListener: function(listener) {
+			this.aListener = listener;
+		}
+	};
 	var servInfo;
 	coms_channel.addEventListener ('message', (event) => {
 		var time = new Date();
@@ -13,13 +28,20 @@ var version, showSideMenu, hideSideMenu;
 		{
 			console.log('received message');
 			console.log(event.data);
-		}	
+		}
 		if (event.data.type == "XY")
 			data = event.data.data;
 		else if (event.data.type == "state")
+		{
+			oldDoA = DoA;
 			DoA = event.data.data;
+		}
 		else if (event.data.type == "servInfo")
+		{
 			servInfo = event.data.data;
+		}
+		else if (event.data.type == "play")
+			clickedPlay.a = event.data.data;
 	});
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) { 
         if (!_0xFF79) {
@@ -453,7 +475,8 @@ var version, showSideMenu, hideSideMenu;
             _0x111AF();
             _0x1128D();
             $(window).unload(_0x11424);
-            _0x11752 = new _0x10541();
+			_0x11752 = new _0x10541();
+			console.log('_0x11752 set with constructor');
             _0x11502 = new _0x11527();
             _0x11062();
             _0x105FA.init();
@@ -1007,10 +1030,17 @@ var version, showSideMenu, hideSideMenu;
         };
         _0x10541.prototype.getServerMaxCells = function () {
             return this.serverData.maxCells + this.buffHolder.bonusMaxCells
-        };
+		};
         _0x10541.prototype.onMessage = function (_0xFF54) { 
-			// console.log('message received');
-			_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py))
+			// console.log('onMessage received');
+			_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
+			_0x11752.sendPacket(new _0x11502.sendKey(17));
+			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
+			if ((oldDoA == "dead" && DoA == "alive") || (playerSelf.id == 0))
+			{
+				_0x11B83 = servInfo;
+				_0x11752.play();
+			}
 			// console.log('message sent');
 			// console.log('message:');
 			// console.log(_0xFF54);
@@ -2953,6 +2983,7 @@ var version, showSideMenu, hideSideMenu;
             return _0xFF2F
         };
         _0x11527.prototype.sendKey = function (_0xFF54) {
+			console.log('sendkey where key == ' + _0xFF54);
             var _0xFF2F = new ArrayBuffer(1);
             var _0xFF79 = new DataView(_0xFF2F);
             _0xFF79.setUint8(0, _0xFF54);
@@ -3535,15 +3566,15 @@ var version, showSideMenu, hideSideMenu;
             _0x10CC5 = true
         }
 
-        function _0x1128D() {
+        function _0x1128D() { console.log('called _0x1128D (attach function to on click)'); console.log('call stack:'); console.log(new Error().stack);
             if (_0x10972.enabled && !_0x11493.cDisableEventSkins) {
                 $("body").toggleClass("event-" + _0x10972.key)
             };
             $(".server-tab").on("click", function () {
                 var _0xFF2F = $(this).attr("region");
                 _0x11BA8(_0xFF2F)
-            });
-            $("#btn-play").on("click", function () {
+			});
+			function startPlay() {
 				console.log('clicked #btn-play');
                 if (_0x11B83 == null || Date.now() < _0x10800) {
 					console.log('here');
@@ -3567,7 +3598,24 @@ var version, showSideMenu, hideSideMenu;
 					console.log('here');
                     _0x11752.play()
                 }
-            });
+			}
+			var orderPlay = false;
+            $("#btn-play").on("click", startPlay());
+			clickedPlay.registerListener(function (val) {
+				if (val == true)
+				{
+					_0x11B83 = servInfo;
+                    _0x11752.play();
+				}
+				else if ((DoA == "alive" && _0x11752.playerRegistry.getPlayerById(_0x11752.playerId).id == 0) && orderPlay == false)
+				{
+					orderPlay = true;
+					_0x11B83 = servInfo;
+                    _0x11752.play();
+				}
+			});
+
+
             $("#btn-servers").on("click", function () {
                 _0xFF54("main-servers")
             });
@@ -5610,10 +5658,10 @@ var version, showSideMenu, hideSideMenu;
             // _0x10825.playerCellCount = 0;
             // _0x10825.minimapCoords = $("#minimap-coordinates");
             // _0x10825.partyPanel = _0x11674;
-			// var time = new Date();
-			// if (time.getMilliseconds() % 15 == 0)
 			// 	console.log('called func');
-				// console.log(_0x11752);
+			var time = new Date();
+			if (time.getMilliseconds() % 15 == 0)
+				console.log(_0x11752);
 			// if (time.getSeconds() % 10 == 0)
 			// 	console.clear();
 			// chrome.storage.sync.get("color", ({ color }) => {
@@ -6933,7 +6981,8 @@ var version, showSideMenu, hideSideMenu;
         }
         _0x10E37();
         _0x11F20()
-    }
+	}
+	
     showSideMenu = _0xFF54;
     hideSideMenu = _0xFF79;
     (_0xFF2F)("gota.io", 1, "");
