@@ -1,7 +1,33 @@
-var littleEndian = (function() {
-	var buffer = new ArrayBuffer(2);
-	new DataView(buffer).setInt16(0, 256, true /* littleEndian */);
-	// Int16Array uses the platform's endianness.
-	return new Int16Array(buffer)[0] === 256;
-  })();
-  console.log(littleEndian); // true or false
+var _0xFF0A = ["gota.io",
+	"",
+	":",
+	"split",
+	"/",
+	"://",
+	"href",
+	"location",
+	",",
+	"length",
+	".",
+	"error",
+	"script",
+	"https://www.google-analytics.com/analytics.js",
+	"ga",
+	"GoogleAnalyticsObject",
+	"push",
+	"q",
+	"l",
+	"createElement",
+	"getElementsByTagName",
+	"async",
+	"src",
+	"insertBefore",
+	"parentNode",
+	"create",
+	"UA-11512090-13",
+	"auto",
+	"send",
+	"pageview"
+];
+for (i in _0xFF0A)
+	console.log(_0xFF0A[i]);

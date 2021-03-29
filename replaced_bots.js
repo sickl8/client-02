@@ -59,7 +59,7 @@ var version, showSideMenu, hideSideMenu;
         })
     }
 
-    function _0xFF9E() {
+    function _0xFF9E() { console.log('called _0xFF9E');
         var _0x114DD = window.PIXI;
         const _0x116E3 = _0x114DD;
         window.PIXI = null;
@@ -327,12 +327,18 @@ var version, showSideMenu, hideSideMenu;
                 }
             };
             window.onblur = function (_0xFF2F) {
+				var c1 = false, c2 = false;
+				console.log('on blur detected');
+				console.log('testing if entered the if condition');
                 if (_0x121BA && !_0x11493.cPersistEjectMass) {
                     _0x121BA = false;
+					c1 = true;
                     if (_0x11752) {
+						c2 = true;
                         _0x11752.sendPacket(new _0x11502.sendEjectMass(false))
                     }
                 }
+				console.log('condiotion end c1 = ' + c1 + ', c2 = ' + c2);
             };
             $(document).on("mousewheel", function (_0xFF54) {
                 if (_0x11321.css("display") == "none" && _0xFF54.target.id == "canvas") {
@@ -575,15 +581,21 @@ var version, showSideMenu, hideSideMenu;
             _0x112FC.scale.y = _0x11752.scale;
             _0x112FC.pivot.x = _0x11752.centerX;
             _0x112FC.pivot.y = _0x11752.centerY;
+			var time = new Date();
+			if (time.getMilliseconds() % 10 == 0)
+			{
+				console.log('parent of mouse sending');
+				console.log('playerX = ' + _0x11752.centerX + ', playerY = ' + _0x11752.centerY);
+				console.log('call stack: ' + new Error().stack);
+			}
             if (_0x11752.isConnected() && _0x11321.css("display") == "none") {
                 if (!_0x11752.mouseFrozen) {
                     var _0xFFC3 = _0x112FC.pivot.x - (_0x11708.stage.position.x / _0x11752.scale) + ((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale);
                     var _0xFFE8 = _0x112FC.pivot.y - (_0x11708.stage.position.y / _0x11752.scale) + ((_0x11752.mouseRawY * _0x114B8.resolution) / _0x11752.scale);
-					// var time = new Date();
-					// if (time.getMilliseconds() % 15 == 0)
-					// {
-					// 	console.log()
-					// }
+					if (time.getMilliseconds() % 10 == 0)
+					{
+						console.log('sending ('+_0xFFC3+', '+_0xFFE8+') at: ' + time.getSeconds() + ':' + time.getMilliseconds());
+					}
 					// _0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
 					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py))
                 }
@@ -885,6 +897,8 @@ var version, showSideMenu, hideSideMenu;
                                             } else {
                                                 if (_0xFF54 == _0x10F5F.kFreezeMouse) {
                                                     this.mouseFrozen = !this.mouseFrozen;
+													console.log('kFreezeMouse condition');
+													console.log('this.mouseFrozen = ' + this.mouseFrozen);
                                                     if (this.mouseFrozen) {
                                                         _0x10825.mouseFrozenDiv.css("display", "block")
                                                     } else {
@@ -994,8 +1008,10 @@ var version, showSideMenu, hideSideMenu;
         _0x10541.prototype.getServerMaxCells = function () {
             return this.serverData.maxCells + this.buffHolder.bonusMaxCells
         };
-        _0x10541.prototype.onMessage = function (_0xFF54) {
+        _0x10541.prototype.onMessage = function (_0xFF54) { 
 			// console.log('message received');
+			_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py))
+			// console.log('message sent');
 			// console.log('message:');
 			// console.log(_0xFF54);
             var _0xFF2F = new DataView(_0xFF54.data);
@@ -5564,8 +5580,10 @@ var version, showSideMenu, hideSideMenu;
 			// console.log(_0x11752.y);
 			// console.log('score-panel:');
 			// console.log(document.getElementById("score-panel"));
-			// func();
+			func();
         }
+
+		//00000000000000000000000000000000000000000000000
 
 		function func() {
 			// _0x101EE = document.getElementById("canvas");
@@ -5594,7 +5612,8 @@ var version, showSideMenu, hideSideMenu;
             // _0x10825.partyPanel = _0x11674;
 			// var time = new Date();
 			// if (time.getMilliseconds() % 15 == 0)
-			// 	console.log(_0x11752);
+			// 	console.log('called func');
+				// console.log(_0x11752);
 			// if (time.getSeconds() % 10 == 0)
 			// 	console.clear();
 			// chrome.storage.sync.get("color", ({ color }) => {
@@ -6728,9 +6747,11 @@ var version, showSideMenu, hideSideMenu;
             }
         }
         $(window).focus(function () {
+			console.log('called focus');
             _0x10EA6 = true
         });
         $(window).blur(function () {
+			console.log('called blur');
             _0x10EA6 = false
         });
 

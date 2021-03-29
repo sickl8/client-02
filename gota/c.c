@@ -154,7 +154,7 @@ char	*loadfile(char *file)
 int		main()
 {
 	char **strings = split(loadfile("strings.txt"), '\n');
-	char **js = split(loadfile("gota_orig.js"), '\n');
+	char **js = split(loadfile("unnamed_script_1.js"), '\n');
 	int i;
 	for (i = 0; strings[i]; i++);
 	replace(js, strings, i);

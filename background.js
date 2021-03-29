@@ -20,15 +20,11 @@ chrome.runtime.onInstalled.addListener
 	}
 );
 
-// async function getFromStorage(key) {
-//     return new Promise((resolve, reject) => {
-//         chrome.storage.sync.get(key, resolve);
-//     })
-//         .then(result => {
-//             if (key == null) return result;
-//             else return result[key];
-//         });
-// }
+chrome.storage.onChanged.addListener(function(changes, area) {
+	if (area == "sync" && "LBC" in changes) {
+		btn = changes.LBC.newValue;
+	}
+});
 
 function redirect_to_replaced(details) {
 	var rg = new RegExp('/gota.io/');
@@ -63,11 +59,6 @@ chrome.webRequest.onBeforeRequest.addListener(
 	["blocking"]
 );
 
-chrome.storage.onChanged.addListener(function(changes, area) {
-    if (area == "sync" && "LBC" in changes) {
-        btn = changes.LBC.newValue;
-    }
-});
 
 // chrome.webRequest.onBeforeRequest.addListener(
 // 		function(details) {
