@@ -23,12 +23,14 @@ var version, showSideMenu, hideSideMenu;
 	};
 	var servInfo;
 	coms_channel.addEventListener ('message', (event) => {
-		var time = new Date();
-		if (time.getMilliseconds() % 15 == 0)
-		{
-			console.log('received message');
-			console.log(event.data);
-		}
+		// var time = new Date();
+		// if (time.getMilliseconds() % 15 == 0)
+		// {
+		// 	console.log('received message');
+		// 	console.log(event.data);
+		// }
+		if (event.data.type == "checked")
+			console.log("checked = " + event.data.data);
 		if (event.data.type == "XY")
 			data = event.data.data;
 		else if (event.data.type == "state")
@@ -604,21 +606,21 @@ var version, showSideMenu, hideSideMenu;
             _0x112FC.scale.y = _0x11752.scale;
             _0x112FC.pivot.x = _0x11752.centerX;
             _0x112FC.pivot.y = _0x11752.centerY;
-			var time = new Date();
-			if (time.getMilliseconds() % 10 == 0)
-			{
-				console.log('parent of mouse sending');
-				console.log('playerX = ' + _0x11752.centerX + ', playerY = ' + _0x11752.centerY);
-				console.log('call stack: ' + new Error().stack);
-			}
+			// var time = new Date();
+			// if (time.getMilliseconds() % 10 == 0)
+			// {
+			// 	console.log('parent of mouse sending');
+			// 	console.log('playerX = ' + _0x11752.centerX + ', playerY = ' + _0x11752.centerY);
+			// 	console.log('call stack: ' + new Error().stack);
+			// }
             if (_0x11752.isConnected() && _0x11321.css("display") == "none") {
                 if (!_0x11752.mouseFrozen) {
                     var _0xFFC3 = _0x112FC.pivot.x - (_0x11708.stage.position.x / _0x11752.scale) + ((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale);
                     var _0xFFE8 = _0x112FC.pivot.y - (_0x11708.stage.position.y / _0x11752.scale) + ((_0x11752.mouseRawY * _0x114B8.resolution) / _0x11752.scale);
-					if (time.getMilliseconds() % 10 == 0)
-					{
-						console.log('sending ('+_0xFFC3+', '+_0xFFE8+') at: ' + time.getSeconds() + ':' + time.getMilliseconds());
-					}
+					// if (time.getMilliseconds() % 10 == 0)
+					// {
+					// 	console.log('sending ('+_0xFFC3+', '+_0xFFE8+') at: ' + time.getSeconds() + ':' + time.getMilliseconds());
+					// }
 					// _0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
 					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py))
                 }
@@ -769,8 +771,8 @@ var version, showSideMenu, hideSideMenu;
             }
         };
         _0x10541.prototype.play = function () {
-			console.log("_0x11B83 = :");
-			console.log(_0x11B83);
+			// console.log("_0x11B83 = :");
+			// console.log(_0x11B83);
             if (_0x11B83 == null) {
                 this.selfMsg("No server selected!");
                 return
@@ -2983,7 +2985,7 @@ var version, showSideMenu, hideSideMenu;
             return _0xFF2F
         };
         _0x11527.prototype.sendKey = function (_0xFF54) {
-			console.log('sendkey where key == ' + _0xFF54);
+			// console.log('sendkey where key == ' + _0xFF54);
             var _0xFF2F = new ArrayBuffer(1);
             var _0xFF79 = new DataView(_0xFF2F);
             _0xFF79.setUint8(0, _0xFF54);
@@ -3600,7 +3602,31 @@ var version, showSideMenu, hideSideMenu;
                 }
 			}
 			var orderPlay = false;
-            $("#btn-play").on("click", startPlay());
+            $("#btn-play").on("click", function asd() {
+				console.log('clicked #btn-play');
+                if (_0x11B83 == null || Date.now() < _0x10800) {
+					console.log('here');
+                    return
+                };
+                if (Object.keys(_0x11752.myCells).length != 0 && this.currentServerName == _0x11B83.name) {
+					console.log('here');
+                    _0x10D59(_0x11321);
+                    return
+                };
+                _0x11752.spectate = false;
+                if (_0x11F45.incrementPlay() && typeof adplayer != "undefined") {
+					console.log('here');
+                    aiptag.cmd.player.push(function () {
+                        adplayer.startPreRoll()
+                    });
+                    _0x10D59(_0x11321);
+                    _0x10D34();
+                    _0x10800 = Date.now() + 2000
+                } else {
+					console.log('here');
+                    _0x11752.play()
+                }
+			});
 			clickedPlay.registerListener(function (val) {
 				if (val == true)
 				{
@@ -5659,9 +5685,11 @@ var version, showSideMenu, hideSideMenu;
             // _0x10825.minimapCoords = $("#minimap-coordinates");
             // _0x10825.partyPanel = _0x11674;
 			// 	console.log('called func');
-			var time = new Date();
-			if (time.getMilliseconds() % 15 == 0)
-				console.log(_0x11752);
+
+			// var time = new Date();
+			// if (time.getMilliseconds() % 15 == 0)
+			// 	console.log(_0x11752);
+
 			// if (time.getSeconds() % 10 == 0)
 			// 	console.clear();
 			// chrome.storage.sync.get("color", ({ color }) => {

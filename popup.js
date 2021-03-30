@@ -34,6 +34,28 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 		);
 	});
+	var checkbox = document.getElementById("chkbx");
+
+	if (checkbox) {
+		checkbox.addEventListener('change', function() {
+			if (this.checked)
+				chrome.storage.sync.set({"checked": true});
+			else
+				chrome.storage.sync.set({"checked": false});
+		})
+	}
 });
+
+
+chrome.storage.onChanged.addListener(function(changes, area) {
+	if (area == "sync" && "checked" in changes) {
+		console.log('called checked changed to ' + changes.checked.newValue);
+		chrome.runtime.sendMessage();
+		// var coms_channel = new BroadcastChannel("gotaXY");
+		// var message = {type: "checked", data: changes.checked.newValue};
+		// coms_channel.postMessage(message);
+	}
+});
+
 
 // chrome.windows.update(window.id, {focused:true})

@@ -59,6 +59,16 @@ chrome.webRequest.onBeforeRequest.addListener(
 	["blocking"]
 );
 
+chrome.runtime.onMessageExternal.addListener(
+	function(request, sender, sendResponse) {
+		console.log("request");
+		console.log(request);
+		console.log("sender");
+		console.log(sender);
+		console.log("sendResponse");
+		console.log(sendResponse);
+		sendResponse("hello to you too");
+});
 
 // chrome.webRequest.onBeforeRequest.addListener(
 // 		function(details) {

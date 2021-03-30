@@ -31,5 +31,8 @@
 		"48": "/images/gota_48.png",
 		"128": "/images/gota_128.png"
 	},
-	"web_accessible_resources": [ "replaced.js", "replaced_main.js", "replaced_bots.js" ]
+	"web_accessible_resources": [ "replaced.js", "replaced_main.js", "replaced_bots.js" ],
+	"externally_connectable": {
+		"matches": ["http://127.0.0.1:*/*", "https://127.0.0.1:*/*", "https://gota.io/*"]
+	}
 }

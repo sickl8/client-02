@@ -4,10 +4,30 @@
 		<!-- <link rel="stylesheet" href="button.css"> -->
 	</head>
 	<body>
-		<input type="button" id="spwn-main" value="Spawn main tab"/>
-		<input type="button" id="spwn-bots" value="Spawn feeder"/>
-		<script src="popup.js"></script>
+		<input type="button" id="spwn-main" value="   Spawn main tab   "/>
+		<input type="button" id="spwn-bots" value="    Spawn feeder    "/>
+		<div>
+			<p>Feeders Respawn:
+				<label class="switch">
+					<input type="checkbox" id="respawn"  checked>
+					<span class="slider"></span>
+				</label>
+			</p>
+			<p>Feeders Move:
+				<label class="switch">
+					<input type="checkbox" id="move" checked>
+					<span class="slider"></span>
+				</label>
+			</p>
+		</div>
+		<h4>How to use the extension:</h4>
+		<h4>1. click on "spawn main tab", this is the tab that you'll be using to play.</h4>
+		<h4>2. click on "spawn feeder", this will spawn a feeder/bot for each click on that button.</h4>
+		<h4>3. this is a very imporant step, you HAVE TO wait for the feeders' webpage to load completly (you can confirm that it did load when the server list shows up), or else they won't respond.</h4>
+		<h4>4. once they do, choose a server on the main tab as you would and hit play.</h4>
+		<h4>5. enjoy!</h4>
 		<!-- <button id="spwn-main" class="button0" onclick="spawn_main()">Spawn main tab</button>
-		<button id="spwn-bots" class="button0" onclick="spawn_bots()">spawn feeder</button> -->
+			<button id="spwn-bots" class="button0" onclick="spawn_bots()">spawn feeder</button> -->
+		<script src="popup.js"></script>
 	</body>
 </html>
