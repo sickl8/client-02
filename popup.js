@@ -1,12 +1,3 @@
-// function spawn_main() {
-// 	// chrome.storage.sync.set({"LBC": "M"});
-// 	// window.open("https://gota.io/web/");
-// }
-
-// function spawn_bots() {
-// 	// chrome.storage.sync.set({"LBC": "B"});
-// 	// window.open("https://gota.io/web/");
-// }
 
 window.addEventListener('DOMContentLoaded', function() {
 	// your button here
@@ -34,28 +25,53 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 		);
 	});
-	var checkbox = document.getElementById("chkbx");
-
-	if (checkbox) {
-		checkbox.addEventListener('change', function() {
-			if (this.checked)
-				chrome.storage.sync.set({"checked": true});
-			else
-				chrome.storage.sync.set({"checked": false});
+	var erespawn = document.getElementById("respawn");
+	var emove = document.getElementById("move");
+	var exId = chrome.runtime.id;
+	if (erespawn) {
+		// erespawn.checked = fspawn;
+		erespawn.addEventListener('change', function() {
+			if (this.checked) {
+				console.log('checked respawn');
+				chrome.runtime.sendMessage(exId, {type: "checkbox", respawn: true}, function(response) {});
+				// chrome.storage.sync.set({"respawn": true});
+				// fspawn = true;
+			}
+			else {
+				console.log('unchecked respawn');
+				chrome.runtime.sendMessage(exId, {type: "checkbox", respawn: false}, function(response) {});
+				// chrome.storage.sync.set({"respawn": false});
+				// fspawn = false;
+			}
+		})
+	}
+	if (emove) {
+		// emove.checked = fmove;
+		emove.addEventListener('change', function() {
+			if (this.checked) {
+				console.log('checked move');
+				chrome.runtime.sendMessage(exId, {type: "checkbox", move: true}, function(response) {});
+				// chrome.storage.sync.set({"move": true});
+				// fmove = true;
+			}
+			else {
+				chrome.runtime.sendMessage(exId, {type: "checkbox", move: false}, function(response) {});
+				console.log('unchecked move');
+				// chrome.storage.sync.set({"move": false});
+				// fmove = false;
+			}
 		})
 	}
 });
 
-
-chrome.storage.onChanged.addListener(function(changes, area) {
-	if (area == "sync" && "checked" in changes) {
-		console.log('called checked changed to ' + changes.checked.newValue);
-		chrome.runtime.sendMessage();
-		// var coms_channel = new BroadcastChannel("gotaXY");
-		// var message = {type: "checked", data: changes.checked.newValue};
-		// coms_channel.postMessage(message);
-	}
-});
+// chrome.storage.onChanged.addListener(function(changes, area) {
+// 	if (area == "sync" && "respawn" in changes) {
+// 		fspawn = changes.respawn.newValue;
+// 	}
+// 	if (area == "sync" && "move" in changes) {
+// 		fmove = changes.move.newValue;
+// 	}
+// });
 
 
 // chrome.windows.update(window.id, {focused:true})

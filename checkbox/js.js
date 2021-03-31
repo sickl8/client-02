@@ -1,4 +1,4 @@
-setInterval(function(){
+setInterval(function() {
 	var inp = document.getElementById('chkbx');
 	console.log(inp.checked);
 	var editorExtensionId = "bacgekbohpglonljlggnohfnhockiaig";

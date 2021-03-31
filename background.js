@@ -8,6 +8,8 @@ chrome.runtime.onInstalled.addListener
 (
 	() => {
 		chrome.storage.sync.set({ "LBC" : null });
+		chrome.storage.sync.set({ "respawn" : true });
+		chrome.storage.sync.set({ "move" : true });
 		chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 			chrome.declarativeContent.onPageChanged.addRules([{
 			conditions: [new chrome.declarativeContent.PageStateMatcher({
@@ -67,9 +69,20 @@ chrome.runtime.onMessageExternal.addListener(
 		console.log(sender);
 		console.log("sendResponse");
 		console.log(sendResponse);
-		sendResponse("hello to you too");
+		// sendResponse("hello to you too");
 });
 
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		console.log("request");
+		console.log(request);
+		console.log("sender");
+		console.log(sender);
+		console.log("sendResponse");
+		console.log(sendResponse);
+		return true;
+		// sendResponse("hello to you too");
+});
 // chrome.webRequest.onBeforeRequest.addListener(
 // 		function(details) {
 // 			if( details.url == "http://127.0.0.1:5500/js-mouse/files/js.js" ) {
