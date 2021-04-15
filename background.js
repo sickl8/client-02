@@ -10,6 +10,7 @@ chrome.runtime.onInstalled.addListener
 		chrome.storage.sync.set({ "LBC" : null });
 		chrome.storage.sync.set({ "respawn" : true });
 		chrome.storage.sync.set({ "move" : true });
+		chrome.storage.sync.set({ "fmouse" : false });
 		chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 			chrome.declarativeContent.onPageChanged.addRules([{
 			conditions: [new chrome.declarativeContent.PageStateMatcher({
