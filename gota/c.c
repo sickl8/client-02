@@ -153,12 +153,11 @@ char	*loadfile(char *file)
 
 int		main()
 {
-	char **strings = split(loadfile("strings.txt"), '\n');
-	char **js = split(loadfile("unnamed_script_1.js"), '\n');
+	char **strings = split(loadfile("strings3.3.7.1.txt"), '\n');
+	char **js = split(loadfile("gota/gota_orig.js"), '\n');
 	int i;
 	for (i = 0; strings[i]; i++);
 	replace(js, strings, i);
-	// int i;
 	// for (i = 0; strings[i]; i++)
 	// 	printf("%s\n", strings[i]);
 	// printf("i = %d\n", i);

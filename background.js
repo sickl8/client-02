@@ -36,7 +36,7 @@ function redirect_to_replaced(details) {
 	console.log('please work btn = ' + btn);
 	if (btn == "M")
 	{
-		if (details.url == "https://gota.io/web/gota.js?v=3.3.7") {
+		if (details.url == "https://gota.io/web/gota.js?v=3.3.7.1") {
 			chrome.storage.sync.set({"LBC": null});
 			console.log('test');
 			console.log('test ' + id);
