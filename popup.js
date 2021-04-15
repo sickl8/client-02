@@ -2,11 +2,6 @@
 
 window.addEventListener('DOMContentLoaded', function() {
 	// your button here
-
-	
-
-	
-
 	var link0 = document.getElementById("spwn-main");
 	// onClick's logic below:
 	if (!link0)
