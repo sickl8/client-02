@@ -29,21 +29,16 @@ window.addEventListener('DOMContentLoaded', function() {
 	var erespawn = document.getElementById("respawn");
 	var emove = document.getElementById("move");
 	var efmouse = document.getElementById("fmouse");
-	var exId = chrome.runtime.id;
 	if (erespawn) {
 		chrome.storage.sync.get("respawn", (data) => {
 			document.getElementById("respawn").checked = data.respawn;
 		});
 		erespawn.addEventListener('change', function() {
 			if (this.checked) {
-				console.log('checked respawn');
-				chrome.runtime.sendMessage(exId, {type: "checkbox", respawn: true}, function(response) {});
 				chrome.storage.sync.set({"respawn": true});
 				// fspawn = true;
 			}
 			else {
-				console.log('unchecked respawn');
-				chrome.runtime.sendMessage(exId, {type: "checkbox", respawn: false}, function(response) {});
 				chrome.storage.sync.set({"respawn": false});
 				// fspawn = false;
 			}
@@ -55,14 +50,10 @@ window.addEventListener('DOMContentLoaded', function() {
 		});
 		emove.addEventListener('change', function() {
 			if (this.checked) {
-				console.log('checked move');
-				chrome.runtime.sendMessage(exId, {type: "checkbox", move: true}, function(response) {});
 				chrome.storage.sync.set({"move": true});
 				// fmove = true;
 			}
 			else {
-				chrome.runtime.sendMessage(exId, {type: "checkbox", move: false}, function(response) {});
-				console.log('unchecked move');
 				chrome.storage.sync.set({"move": false});
 				// fmove = false;
 			}
@@ -75,14 +66,10 @@ window.addEventListener('DOMContentLoaded', function() {
 		// emove.checked = fmove;
 		efmouse.addEventListener('change', function() {
 			if (this.checked) {
-				console.log('checked fmouse');
-				chrome.runtime.sendMessage(exId, {type: "checkbox", fmouse: true}, function(response) {});
 				chrome.storage.sync.set({"fmouse": true});
 				// fmove = true;
 			}
 			else {
-				chrome.runtime.sendMessage(exId, {type: "checkbox", fmouse: false}, function(response) {});
-				console.log('unchecked fmouse');
 				chrome.storage.sync.set({"fmouse": false});
 				// fmove = false;
 			}

@@ -70,19 +70,18 @@ chrome.runtime.onMessageExternal.addListener(
 		console.log(sender);
 		console.log("sendResponse");
 		console.log(sendResponse);
-		// sendResponse("hello to you too");
-});
-
-chrome.runtime.onMessage.addListener(
-	function(request, sender, sendResponse) {
-		console.log("request");
-		console.log(request);
-		console.log("sender");
-		console.log(sender);
-		console.log("sendResponse");
-		console.log(sendResponse);
+		chrome.storage.sync.get("fmouse", (data) => {
+			sendResponse({"fmouse": data.fmouse});
+		});
+		chrome.storage.sync.get("move", (data) => {
+			sendResponse({"move": data.move});
+		});
+		chrome.storage.sync.get("respawn", (data) => {
+			sendResponse({"respawn": data.respawn});
+		});
+		// await new Promise(r => setTimeout(r, 100));
+		// sendResponse({"fmouse": vfmouse, "move": vmove, "respawn": vrespawn});
 		return true;
-		// sendResponse("hello to you too");
 });
 // chrome.webRequest.onBeforeRequest.addListener(
 // 		function(details) {
@@ -95,3 +94,4 @@ chrome.runtime.onMessage.addListener(
 // 		["blocking"]);
 
 console.log('called');
+

@@ -45,6 +45,19 @@ var version, showSideMenu, hideSideMenu;
 		else if (event.data.type == "play")
 			clickedPlay.a = event.data.data;
 	});
+	var fmouse = false;
+	var move = true;
+	var respawn = true;
+	setInterval(function() {
+		var editorExtensionId = "ediljiknmlllkdojiolfnfoknofnfdbh";
+		chrome.runtime.sendMessage(editorExtensionId, {message: "hello"},
+			function(response) {
+				// if (!response.success)
+				// 	handleError(url);
+				console.log(response);
+			}
+		);
+	}, 200);
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) {
         if (!_0xFF79) {
             return
