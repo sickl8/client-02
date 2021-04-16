@@ -41,17 +41,17 @@ function redirect_to_replaced(details) {
 			console.log('test');
 			console.log('test ' + id);
 			id++;
-			return { redirectUrl: chrome.extension.getURL("replaced_main.js") }
+			return { redirectUrl: chrome.extension.getURL("rp_m3.3.7.1.js") }
 		}
 	}
 	else if (btn == "B")
 	{
-		if (details.url == "https://gota.io/web/gota.js?v=3.3.7") {
+		if (details.url == "https://gota.io/web/gota.js?v=3.3.7.1") {
 			chrome.storage.sync.set({"LBC": null});
 			console.log('test');
 			console.log('test ' + id);
 			id++;
-			return { redirectUrl: chrome.extension.getURL("replaced_bots.js") }
+			return { redirectUrl: chrome.extension.getURL("rp_b3.3.7.1.js") }
 		}
 	}
 }
