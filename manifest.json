@@ -2,7 +2,7 @@
 	"key": "MIGfMA3GCSqGSIb3DFEBAQUAA4GNADCBiQKBgQDcBHwzDvyBQ6bDppkIs9MP4ksKqCMyXQ/A52JivHZKh4YO/9vJsT3oaZhSpDCE9RCocOEQvwsHsFReW2nUEc6OLLyoCFFxIb7KkLGsmfakkut/fFdNJYh0xOTbSN8YvLWcqph09XAY2Y/f0AL7vfO1cuCqtkMt8hFrBGWxDdf9CQIDAQAB",
 	"name": "Gota.io Feeder",
 	"description": "Enjoy!",
-	"version": "1.0",
+	"version": "3.3.7.1",
 	"manifest_version": 2,
 	"background": {
 		"scripts": ["background.js", "popup.js"]
