@@ -5500,6 +5500,7 @@ var version, showSideMenu, hideSideMenu;
 			postMessage("play", false);
 			postMessage("mXY", mdata);
 			postMessage("mdim", maindim);
+			postMessage("other", _0x11752.scale);
 			// console.log('sending data:');
 			// console.log(data);
 			// var message = { type: "XY", data: data}

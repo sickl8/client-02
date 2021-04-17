@@ -24,6 +24,7 @@ var version, showSideMenu, hideSideMenu;
 	};
 	var servInfo;
 	var mainW, mainH;
+	var skale;
 	coms_channel.addEventListener('message', (event) => {
 		// var time = new Date();
 		// if (time.getMilliseconds() % 15 == 0)
@@ -50,6 +51,10 @@ var version, showSideMenu, hideSideMenu;
 		{
 			mainW = event.data.data.width;
 			mainH = event.data.data.height;
+		}
+		else if (event.data.type == "other")
+		{
+			skale = event.data.data;
 		}
 	});
 	var fmouse = false;
@@ -641,8 +646,8 @@ var version, showSideMenu, hideSideMenu;
 							_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
 						else
 						{
-							var pxx = data.px + (mdata.px - mainW / 2) / mdata.zoom;
-							var pyy = data.py + (mdata.py - mainH / 2) / mdata.zoom;
+							var pxx = data.px + (mdata.px - mainW / 2) / skale;
+							var pyy = data.py + (mdata.py - mainH / 2) / skale;
 							_0x11752.sendPacket(new _0x11502.sendMouse(pxx, pyy));
 						}
 					}
@@ -1058,8 +1063,8 @@ var version, showSideMenu, hideSideMenu;
 					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
 				else
 				{
-					var pxx = data.px + (mdata.px - mainW / 2) / mdata.zoom;
-					var pyy = data.py + (mdata.py - mainH / 2) / mdata.zoom;
+					var pxx = data.px + (mdata.px - mainW / 2) / skale;
+					var pyy = data.py + (mdata.py - mainH / 2) / skale;
 					_0x11752.sendPacket(new _0x11502.sendMouse(pxx, pyy));
 				}
 			}
