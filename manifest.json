@@ -32,6 +32,13 @@
 		"48": "/images/gota_48.png",
 		"128": "/images/gota_128.png"
 	},
+	"content_scripts": [
+		{
+			"matches": ["https://gota.io/web/*"],
+			"run_at": "document_start",
+			"js": ["contentScript.js"]
+		}
+	],
 	"web_accessible_resources": [ "replaced.js", "rp_b3.3.7.1.js", "rp_m3.3.7.1.js" ],
 	"externally_connectable": {
 		"matches": ["http://127.0.0.1:*/*", "https://127.0.0.1:*/*", "https://gota.io/*"]

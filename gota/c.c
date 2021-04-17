@@ -153,8 +153,8 @@ char	*loadfile(char *file)
 
 int		main()
 {
-	char **strings = split(loadfile("strings3.3.7.1.txt"), '\n');
-	char **js = split(loadfile("gota/gota_orig.js"), '\n');
+	char **strings = split(loadfile("proper_strings.txt"), '\n');
+	char **js = split(loadfile("Proper_Script.js"), '\n');
 	int i;
 	for (i = 0; strings[i]; i++);
 	replace(js, strings, i);
