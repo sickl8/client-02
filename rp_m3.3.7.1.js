@@ -563,7 +563,22 @@ var version, showSideMenu, hideSideMenu;
                 if (!_0x11752.mouseFrozen) {
                     var _0xFFC3 = _0x112FC.pivot.x - (_0x11708.stage.position.x / _0x11752.scale) + ((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale);
                     var _0xFFE8 = _0x112FC.pivot.y - (_0x11708.stage.position.y / _0x11752.scale) + ((_0x11752.mouseRawY * _0x114B8.resolution) / _0x11752.scale);
-                    _0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
+					// var time = new Date();
+					// if (time.getMilliseconds() % 10 == 0)
+					// {
+						// console.log('((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale):');
+						// console.log(((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale));
+						// console.log('(_0x11708.stage.position.x / _0x11752.scale)');
+						// console.log((_0x11708.stage.position.x / _0x11752.scale));
+						// console.log('_0x11708.stage.position.x:')
+						// console.log(_0x11708.stage.position.x)
+					// 	var wheight = $(document).height() / 2;
+					// 	var wwidth = $(document).width() / 2;
+					// 	console.log(_0x11752.centerX + (_0x11752.mouseRawX - wwidth) / _0x11752.mouseZoom)
+					// 	console.log(_0x11752.centerY + (_0x11752.mouseRawY - wheight) / _0x11752.mouseZoom)
+					// }
+					_0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
+					// _0x11752.sendPacket(new _0x11502.sendMouse(_0x11752.centerX, _0x11752.centerY))
                 }
             };
             if (!_0x11493.cHideMinimap) {
@@ -5413,6 +5428,7 @@ var version, showSideMenu, hideSideMenu;
                 _0xFF54.fillText(_0xFFE8, _0x1000D, _0x10032)
 			}
 			var data = { px: 0, py: 0 };
+			var mdata = { px: 0, py: 0, zoom: 0 };
 			if (!document.getElementById("playerX"))
 			{
 				var newParagraph0 = document.createElement("p");
@@ -5467,6 +5483,10 @@ var version, showSideMenu, hideSideMenu;
 			$("#srvName").text(_0x11752.currentServerName);
 			data.px = _0x11752.centerX;
 			data.py = _0x11752.centerY;
+			mdata.px = _0x11752.mouseRawX;
+			mdata.py = _0x11752.mouseRawY;
+			mdata.zoom = _0x11752.mouseZoom;
+			maindim = { width: $(document).width(), height: $(document).height() }
 			var playerState;
 			var playerSelf;
 			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
@@ -5478,6 +5498,8 @@ var version, showSideMenu, hideSideMenu;
 			postMessage("servInfo", _0x11B83);
 			postMessage("state", playerState);
 			postMessage("play", false);
+			postMessage("mXY", mdata);
+			postMessage("mdim", maindim);
 			// console.log('sending data:');
 			// console.log(data);
 			// var message = { type: "XY", data: data}

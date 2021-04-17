@@ -70,14 +70,8 @@ chrome.runtime.onMessageExternal.addListener(
 		console.log(sender);
 		console.log("sendResponse");
 		console.log(sendResponse);
-		chrome.storage.sync.get("fmouse", (data) => {
-			sendResponse({"fmouse": data.fmouse});
-		});
-		chrome.storage.sync.get("move", (data) => {
-			sendResponse({"move": data.move});
-		});
-		chrome.storage.sync.get("respawn", (data) => {
-			sendResponse({"respawn": data.respawn});
+		chrome.storage.sync.get(["move", "fmouse", "respawn"], (data) => {
+			sendResponse({"fmouse": data.fmouse, "move": data.move, "respawn": data.respawn});
 		});
 		// await new Promise(r => setTimeout(r, 100));
 		// sendResponse({"fmouse": vfmouse, "move": vmove, "respawn": vrespawn});

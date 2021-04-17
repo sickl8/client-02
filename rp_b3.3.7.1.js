@@ -5,6 +5,7 @@ var version, showSideMenu, hideSideMenu;
 	console.log('loaded replaced_bots.js!');
 	const coms_channel = new BroadcastChannel('gotaXY');
 	var data = { px: 0, py: 0 };
+	var mdata = { px: 0, py: 0, zoom: 1.0 };
 	var oldDoA = "dead";
 	var DoA = "dead";
 	var clickedPlay = {
@@ -22,6 +23,7 @@ var version, showSideMenu, hideSideMenu;
 		}
 	};
 	var servInfo;
+	var mainW, mainH;
 	coms_channel.addEventListener('message', (event) => {
 		// var time = new Date();
 		// if (time.getMilliseconds() % 15 == 0)
@@ -29,10 +31,10 @@ var version, showSideMenu, hideSideMenu;
 		// 	console.log('received message');
 		// 	console.log(event.data);
 		// }
-		if (event.data.type == "checked")
-			console.log("checked = " + event.data.data);
 		if (event.data.type == "XY")
 			data = event.data.data;
+		else if (event.data.type == "mXY")
+			mdata = event.data.data
 		else if (event.data.type == "state")
 		{
 			oldDoA = DoA;
@@ -44,17 +46,25 @@ var version, showSideMenu, hideSideMenu;
 		}
 		else if (event.data.type == "play")
 			clickedPlay.a = event.data.data;
+		else if (event.data.type == "mdim")
+		{
+			mainW = event.data.data.width;
+			mainH = event.data.data.height;
+		}
 	});
 	var fmouse = false;
 	var move = true;
 	var respawn = true;
 	setInterval(function() {
-		var editorExtensionId = "ediljiknmlllkdojiolfnfoknofnfdbh";
+		var editorExtensionId = "hedjogelnmjoilmlomnekfbchmbfngja";
 		chrome.runtime.sendMessage(editorExtensionId, {message: "hello"},
 			function(response) {
 				// if (!response.success)
 				// 	handleError(url);
 				console.log(response);
+				fmouse = response.fmouse;
+				move = response.move;
+				respawn = response.respawn;
 			}
 		);
 	}, 200);
@@ -619,10 +629,25 @@ var version, showSideMenu, hideSideMenu;
                     var _0xFFE8 = _0x112FC.pivot.y - (_0x11708.stage.position.y / _0x11752.scale) + ((_0x11752.mouseRawY * _0x114B8.resolution) / _0x11752.scale);
 					// if (time.getMilliseconds() % 10 == 0)
 					// {
-					// 	console.log('sending ('+_0xFFC3+', '+_0xFFE8+') at: ' + time.getSeconds() + ':' + time.getMilliseconds());
+					// 	console.log('((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale):');
+					// 	console.log(((_0x11752.mouseRawX * _0x114B8.resolution) / _0x11752.scale));
+					// 	console.log('(_0x11708.stage.position.x / _0x11752.scale)');
+					// 	console.log((_0x11708.stage.position.x / _0x11752.scale));
 					// }
 					// _0x11752.sendPacket(new _0x11502.sendMouse(_0xFFC3, _0xFFE8))
-					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py))
+					if (move == true)
+					{
+						if (fmouse == false)
+							_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
+						else
+						{
+							var pxx = data.px + (mdata.px - mainW / 2) / mdata.zoom;
+							var pyy = data.py + (mdata.py - mainH / 2) / mdata.zoom;
+							_0x11752.sendPacket(new _0x11502.sendMouse(pxx, pyy));
+						}
+					}
+					else
+						_0x11752.sendPacket(new _0x11502.sendMouse(_0x11752.centerX, _0x11752.centerY));
                 }
             };
             if (!_0x11493.cHideMinimap) {
@@ -770,7 +795,7 @@ var version, showSideMenu, hideSideMenu;
             }
         };
         _0x10541.prototype.play = function () {
-			console.log('called play')
+			// console.log('called play')
             if (_0x11B83 == null) {
                 this.selfMsg("No server selected!");
                 return
@@ -1027,15 +1052,30 @@ var version, showSideMenu, hideSideMenu;
             return this.serverData.maxCells + this.buffHolder.bonusMaxCells
         };
         _0x10541.prototype.onMessage = function (_0xFF54) {
-			_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
+			if (move == true)
+			{
+				if (fmouse == false)
+					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
+				else
+				{
+					var pxx = data.px + (mdata.px - mainW / 2) / mdata.zoom;
+					var pyy = data.py + (mdata.py - mainH / 2) / mdata.zoom;
+					_0x11752.sendPacket(new _0x11502.sendMouse(pxx, pyy));
+				}
+			}
+			else
+				_0x11752.sendPacket(new _0x11502.sendMouse(_0x11752.centerX, _0x11752.centerY));
 			_0x11752.sendPacket(new _0x11502.sendKey(17));
 			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
-			if ((oldDoA == "dead" && DoA == "alive") || (playerSelf.id == 0))
+			if (respawn == true)
 			{
-				_0x11B83 = servInfo;
-				_0x11752.play();
+				if ((oldDoA == "dead" && DoA == "alive") || (playerSelf.id == 0))
+				{
+					_0x11B83 = servInfo;
+					_0x11752.play();
+				}
 			}
-            var _0xFF2F = new DataView(_0xFF54.data);
+			var _0xFF2F = new DataView(_0xFF54.data);
             var _0xFF79 = _0xFF2F.getUint8(0);
             _0xFF2F.offset = 1;
             switch (_0xFF79) {
@@ -5521,6 +5561,16 @@ var version, showSideMenu, hideSideMenu;
 				var newSpan6 = document.createElement("span");
 				var newParagraph7 = document.createElement("p");
 				var newSpan7 = document.createElement("span");
+				var newParagraph8 = document.createElement("p");
+				var newSpan8 = document.createElement("span");
+				var newParagraph9 = document.createElement("p");
+				var newSpan9 = document.createElement("span");
+				var newParagraph10 = document.createElement("p");
+				var newSpan10 = document.createElement("span");
+				var newParagraph11 = document.createElement("p");
+				var newSpan11 = document.createElement("span");
+				var newParagraph12 = document.createElement("p");
+				var newSpan12 = document.createElement("span");
 				newParagraph0.innerHTML = "Player X:";
 				newParagraph1.innerHTML = "Player Y:";
 				newParagraph2.innerHTML = "Mouse X:";
@@ -5529,6 +5579,11 @@ var version, showSideMenu, hideSideMenu;
 				newParagraph5.innerHTML = "ServerName:";
 				newParagraph6.innerHTML = "MainTabX:";
 				newParagraph7.innerHTML = "MainTabY:";
+				newParagraph8.innerHTML = "MainTabMouseX:";
+				newParagraph9.innerHTML = "MainTabMouseY:";
+				newParagraph10.innerHTML = "MouseZoom:";
+				newParagraph11.innerHTML = "MainWidth:";
+				newParagraph12.innerHTML = "MainHeight:";
 				newSpan0.appendChild(document.createTextNode("0"));
 				newSpan1.appendChild(document.createTextNode("0"));
 				newSpan2.appendChild(document.createTextNode("0"));
@@ -5537,6 +5592,11 @@ var version, showSideMenu, hideSideMenu;
 				newSpan5.appendChild(document.createTextNode("?"));
 				newSpan6.appendChild(document.createTextNode("0"));
 				newSpan7.appendChild(document.createTextNode("0"));
+				newSpan8.appendChild(document.createTextNode("0"));
+				newSpan9.appendChild(document.createTextNode("0"));
+				newSpan10.appendChild(document.createTextNode("0"));
+				newSpan11.appendChild(document.createTextNode("0"));
+				newSpan12.appendChild(document.createTextNode("0"));
 				newSpan0.id = "playerX";
 				newSpan1.id = "playerY";
 				newSpan2.id = "mouseX";
@@ -5545,6 +5605,11 @@ var version, showSideMenu, hideSideMenu;
 				newSpan5.id = "srvName";
 				newSpan6.id = "mainX";
 				newSpan7.id = "mainY";
+				newSpan8.id = "mainMX";
+				newSpan9.id = "mainMY";
+				newSpan10.id = "mouseZ";
+				newSpan11.id = "mainW";
+				newSpan12.id = "mainH";
 				newParagraph0.appendChild(newSpan0);
 				newParagraph1.appendChild(newSpan1);
 				newParagraph2.appendChild(newSpan2);
@@ -5553,6 +5618,11 @@ var version, showSideMenu, hideSideMenu;
 				newParagraph5.appendChild(newSpan5);
 				newParagraph6.appendChild(newSpan6);
 				newParagraph7.appendChild(newSpan7);
+				newParagraph8.appendChild(newSpan8);
+				newParagraph9.appendChild(newSpan9);
+				newParagraph10.appendChild(newSpan10);
+				newParagraph11.appendChild(newSpan11);
+				newParagraph12.appendChild(newSpan12);
 				var insertafter = document.getElementById("score-panel");
 				insertafter.appendChild(newParagraph0);
 				insertafter.appendChild(newParagraph1);
@@ -5562,6 +5632,18 @@ var version, showSideMenu, hideSideMenu;
 				insertafter.appendChild(newParagraph5);
 				insertafter.appendChild(newParagraph6);
 				insertafter.appendChild(newParagraph7);
+				insertafter.appendChild(newParagraph8);
+				insertafter.appendChild(newParagraph9);
+				insertafter.appendChild(newParagraph10);
+				insertafter.appendChild(newParagraph11);
+				insertafter.appendChild(newParagraph12);
+			}
+			var mpx = 0
+			var mpy = 0
+			if (mdata.zoom)
+			{
+				mpx = data.px + (mdata.px - (mainW / 2)) / mdata.zoom;
+				mpy = data.py + (mdata.py - (mainH / 2)) / mdata.zoom;
 			}
 			$("#playerX").text(_0x11752.centerX);
 			$("#playerY").text(_0x11752.centerY);
@@ -5571,6 +5653,11 @@ var version, showSideMenu, hideSideMenu;
 			$("#srvName").text(_0x11752.currentServerName);
 			$("#mainX").text(data.px);
 			$("#mainY").text(data.py);
+			$("#mainMX").text(mpx);
+			$("#mainMY").text(mpy);
+			$("#mouseZ").text(mdata.zoom);
+			$("#mainW").text(mainW);
+			$("#mainH").text(mainH);
 			// var time = new Date();
 			// if (time.getMilliseconds() % 15 == 0)
 			// 	console.log(_0x11752.playerRegistry.getPlayerById(_0x11752.playerId));
