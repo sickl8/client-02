@@ -59,9 +59,6 @@ var version, showSideMenu, hideSideMenu;
 		var editorExtensionId = "hedjogelnmjoilmlomnekfbchmbfngja";
 		chrome.runtime.sendMessage(editorExtensionId, {message: "hello"},
 			function(response) {
-				// if (!response.success)
-				// 	handleError(url);
-				console.log(response);
 				fmouse = response.fmouse;
 				move = response.move;
 				respawn = response.respawn;
