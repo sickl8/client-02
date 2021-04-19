@@ -73,7 +73,7 @@ var version, showSideMenu, hideSideMenu;
 //        variables and listen for post messages from the main tab, including
 //        clicking play.
 //        send a dummy message to the gota feeder to listen for the response
-//        with the data of checkboxes in them
+//        with the data of checkboxes in them.
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) {
         if (!_0xFF79) {
             return
