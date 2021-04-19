@@ -1,9 +1,12 @@
 const build = 2103232;
 var version, showSideMenu, hideSideMenu;
 (function () {
+	//************************************************************************//
 	console.clear();
 	console.log('loaded replaced_main.js!');
 	const coms_channel = new BroadcastChannel('gotaXY');
+	//************************************************************************//
+	// PATCH: open the broadcast channel at the top of rp_m
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) {
         if (!_0xFF79) {
             return

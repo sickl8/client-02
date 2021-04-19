@@ -1,0 +1,11 @@
+--
+to get the function that repeats itself where you send the info to the DOM:
+1. search for a call to requestAnimation, it takes a callback function as a
+parameter.
+2. search in the callback function for the regex expression:
+<<< if \(!_0x[a-zA-Z_0-9]*\.cHideMinimap\) >>>
+only one match should be found, the if condition calls another function that we
+will call PRE.
+3. go to PRE, there is an if condition that that matches the regex expression:
+<<< if \(_0x[\w]*.state === _0x[\w]*.ALIVE && _0x[\w]*.id != _0x[\w]*.playerId\) >>>
+in the if condition there is a call to the function that repeats itself

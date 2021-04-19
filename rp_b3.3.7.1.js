@@ -1,6 +1,7 @@
 const build = 2103232;
 var version, showSideMenu, hideSideMenu;
 (function () {
+/******************************************************************************/
 	console.clear();
 	console.log('loaded replaced_bots.js!');
 	const coms_channel = new BroadcastChannel('gotaXY');
@@ -26,12 +27,6 @@ var version, showSideMenu, hideSideMenu;
 	var mainW, mainH;
 	var skale;
 	coms_channel.addEventListener('message', (event) => {
-		// var time = new Date();
-		// if (time.getMilliseconds() % 15 == 0)
-		// {
-		// 	console.log('received message');
-		// 	console.log(event.data);
-		// }
 		if (event.data.type == "XY")
 			data = event.data.data;
 		else if (event.data.type == "mXY")
@@ -73,6 +68,12 @@ var version, showSideMenu, hideSideMenu;
 			}
 		);
 	}, 200);
+/******************************************************************************/
+// PATCH: open the broadcast channel at the top of rp_b. set the needed
+//        variables and listen for post messages from the main tab, including
+//        clicking play.
+//        send a dummy message to the gota feeder to listen for the response
+//        with the data of checkboxes in them
     function _0xFF2F(_0xFF79, _0x1000D, _0xFFE8) {
         if (!_0xFF79) {
             return

@@ -1,0 +1,6 @@
+--------------------------------------RP_M--------------------------------------
+// PATCH: send main tab info through broadcast channel, using the postMessage
+//        function that is declared inside and above the the added code, and
+//        show the info inside the DOM for monitoring purposes
+// PATCH: open the broadcast channel at the top of rp_m
+--------------------------------------RP_B--------------------------------------
