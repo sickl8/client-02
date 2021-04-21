@@ -5417,32 +5417,32 @@ function _0xADA3(_0xADBD, _0xADF1, _0xADE4) {
 				insertafter.appendChild(newParagraph4);
 				insertafter.appendChild(newParagraph5);
 			}
-			$("#playerX").text(_0x11752.centerX);
-			$("#playerY").text(_0x11752.centerY);
-			$("#mouseX").text(_0x11752.mouseRawX);
-			$("#mouseY").text(_0x11752.mouseRawY);
-			$("#servIP").text(_0x11752.currentServer);
-			$("#srvName").text(_0x11752.currentServerName);
-			data.px = _0x11752.centerX;
-			data.py = _0x11752.centerY;
-			mdata.px = _0x11752.mouseRawX;
-			mdata.py = _0x11752.mouseRawY;
-			mdata.zoom = _0x11752.mouseZoom;
+			$("#playerX").text(_0xB66C.centerX);
+			$("#playerY").text(_0xB66C.centerY);
+			$("#mouseX").text(_0xB66C.mouseRawX);
+			$("#mouseY").text(_0xB66C.mouseRawY);
+			$("#servIP").text(_0xB66C.currentServer);
+			$("#srvName").text(_0xB66C.currentServerName);
+			data.px = _0xB66C.centerX;
+			data.py = _0xB66C.centerY;
+			mdata.px = _0xB66C.mouseRawX;
+			mdata.py = _0xB66C.mouseRawY;
+			mdata.zoom = _0xB66C.mouseZoom;
 			maindim = { width: $(document).width(), height: $(document).height() }
 			var playerState;
 			var playerSelf;
-			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
+			playerSelf = _0xB66C.playerRegistry.getPlayerById(_0xB66C.playerId);
 			if (playerSelf.id == 0)
 				playerState = "dead";
 			else
 				playerState = "alive";
 			postMessage("XY", data);
-			postMessage("servInfo", _0x11B83);
+			postMessage("servInfo", _0xB7E5);
 			postMessage("state", playerState);
 			postMessage("play", false);
 			postMessage("mXY", mdata);
 			postMessage("mdim", maindim);
-			postMessage("other", _0x11752.scale);
+			postMessage("other", _0xB66C.scale);
 /******************************************************************************/
 // PATCH: send main tab info through broadcast channel, using the postMessage
 //        function that is declared inside and above the the added code, and

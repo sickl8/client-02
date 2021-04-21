@@ -43,7 +43,7 @@ function redirect_to_replaced(details) {
 			console.log('test');
 			console.log('test ' + id);
 			id++;
-			return { redirectUrl: chrome.extension.getURL("rp_m" + version + ".js") }
+			return { redirectUrl: chrome.extension.getURL("gota/rp_m" + version + ".js") }
 		}
 	}
 	else if (btn == "B")
@@ -53,7 +53,8 @@ function redirect_to_replaced(details) {
 			console.log('test');
 			console.log('test ' + id);
 			id++;
-			return { redirectUrl: chrome.extension.getURL("rp_b" + version + ".js") }
+			return { redirectUrl: chrome.extension.getURL("gota/rp_b" + version + ".js") }
+			// return { redirectUrl: chrome.extension.getURL("gota/rp3.4.2.console.js") }
 		}
 	}
 }

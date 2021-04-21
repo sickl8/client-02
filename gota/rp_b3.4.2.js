@@ -1,6 +1,79 @@
 const build = 2104182;
 var version, showSideMenu, hideSideMenu;
 (function () {
+/******************************************************************************/
+	console.clear();
+	console.log('loaded replaced_bots.js!');
+	const coms_channel = new BroadcastChannel('gotaXY');
+	var data = { px: 0, py: 0 };
+	var mdata = { px: 0, py: 0, zoom: 1.0 };
+	var oldDoA = "dead";
+	var DoA = "dead";
+	var clickedPlay = {
+		aInternal: false,
+		aListener:	function(val) {},
+					set a(val) {
+						this.aInternal = val;
+						this.aListener(val);
+					},
+					get a() {
+						return this.aInternal;
+					},
+		registerListener: function(listener) {
+			this.aListener = listener;
+		}
+	};
+	var servInfo;
+	var mainW, mainH;
+	var skale;
+	coms_channel.addEventListener('message', (event) => {
+		var tiiime = new Date();
+		if (tiiime.getMilliseconds() % 15 == 0)
+			console.log(event.data)
+		if (event.data.type == "XY")
+			data = event.data.data;
+		else if (event.data.type == "mXY")
+			mdata = event.data.data
+		else if (event.data.type == "state")
+		{
+			oldDoA = DoA;
+			DoA = event.data.data;
+		}
+		else if (event.data.type == "servInfo")
+		{
+			servInfo = event.data.data;
+		}
+		else if (event.data.type == "play")
+			clickedPlay.a = event.data.data;
+		else if (event.data.type == "mdim")
+		{
+			mainW = event.data.data.width;
+			mainH = event.data.data.height;
+		}
+		else if (event.data.type == "other")
+		{
+			skale = event.data.data;
+		}
+	});
+	var fmouse = false;
+	var move = true;
+	var respawn = true;
+	setInterval(function() {
+		var editorExtensionId = "hedjogelnmjoilmlomnekfbchmbfngja";
+		chrome.runtime.sendMessage(editorExtensionId, {message: "hello"},
+			function(response) {
+				fmouse = response.fmouse;
+				move = response.move;
+				respawn = response.respawn;
+			}
+		);
+	}, 200);
+/******************************************************************************/
+// PATCH: open the broadcast channel at the top of rp_b. set the needed
+//        variables and listen for post messages from the main tab, including
+//        clicking play.
+//        send a dummy message to the gota feeder to listen for the response
+//        with the data of checkboxes in them.
     function _0xADA3(_0xADBD, _0xADF1, _0xADE4) {
         if (!_0xADBD) {
             return
@@ -529,7 +602,39 @@ var version, showSideMenu, hideSideMenu;
                 if (!_0xB66C.mouseFrozen) {
                     var _0xADD7 = _0xB4BF.pivot.x - (_0xB652.stage.position.x / _0xB66C.scale) + ((_0xB66C.mouseRawX * _0xB582.resolution) / _0xB66C.scale);
                     var _0xADE4 = _0xB4BF.pivot.y - (_0xB652.stage.position.y / _0xB66C.scale) + ((_0xB66C.mouseRawY * _0xB582.resolution) / _0xB66C.scale);
-                    _0xB66C.sendPacket(new _0xB59C.sendMouse(_0xADD7, _0xADE4))
+                    // _0xB66C.sendPacket(new _0xB59C.sendMouse(_0xADD7, _0xADE4))
+					/******************************************************************************/
+					if (move == true)
+					{
+						if (fmouse == false)
+							_0xB66C.sendPacket(new _0xB59C.sendMouse(data.px, data.py));
+						else
+						{
+							var pxx = data.px + (mdata.px - mainW / 2) / skale;
+							var pyy = data.py + (mdata.py - mainH / 2) / skale;
+							_0xB66C.sendPacket(new _0xB59C.sendMouse(pxx, pyy));
+						}
+					}
+					else
+						_0xB66C.sendPacket(new _0xB59C.sendMouse(_0xB66C.centerX, _0xB66C.centerY));
+					_0xB66C.sendPacket(new _0xB59C.sendKey(17));
+					playerSelf = _0xB66C.playerRegistry.getPlayerById(_0xB66C.playerId);
+					console.log('playerself:')
+					console.log(playerSelf)
+					console.log(playerSelf.id)
+					if (respawn == true)
+					{
+						if ((oldDoA == "dead" && DoA == "alive") || (playerSelf.id == 0))
+						{
+							_0xB7E5 = servInfo;
+							_0xB66C.play();
+						}
+					}
+/******************************************************************************/
+// PATCH: send main coordinates/main cursor coordinates in mouse packet.
+//        send respawn packet if bots are set to respawn.
+//        send continues key(17) "space" so that bots are always smaller than
+//        main.
                 }
             };
             if (!_0xB575.cHideMinimap) {
@@ -937,24 +1042,27 @@ var version, showSideMenu, hideSideMenu;
 			if (move == true)
 			{
 				if (fmouse == false)
-					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
+					_0xB66C.sendPacket(new _0xB59C.sendMouse(data.px, data.py));
 				else
 				{
 					var pxx = data.px + (mdata.px - mainW / 2) / skale;
 					var pyy = data.py + (mdata.py - mainH / 2) / skale;
-					_0x11752.sendPacket(new _0x11502.sendMouse(pxx, pyy));
+					_0xB66C.sendPacket(new _0xB59C.sendMouse(pxx, pyy));
 				}
 			}
 			else
-				_0x11752.sendPacket(new _0x11502.sendMouse(_0x11752.centerX, _0x11752.centerY));
-			_0x11752.sendPacket(new _0x11502.sendKey(17));
-			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
+				_0xB66C.sendPacket(new _0xB59C.sendMouse(_0xB66C.centerX, _0xB66C.centerY));
+			_0xB66C.sendPacket(new _0xB59C.sendKey(17));
+			playerSelf = _0xB66C.playerRegistry.getPlayerById(_0xB66C.playerId);
+			console.log('playerself:')
+			console.log(playerSelf)
+			console.log(playerSelf.id)
 			if (respawn == true)
 			{
 				if ((oldDoA == "dead" && DoA == "alive") || (playerSelf.id == 0))
 				{
-					_0x11B83 = servInfo;
-					_0x11752.play();
+					_0xB7E5 = servInfo;
+					_0xB66C.play();
 				}
 			}
 /******************************************************************************/
@@ -3459,6 +3567,44 @@ var version, showSideMenu, hideSideMenu;
                     _0xB66C.play()
                 }
             });
+/******************************************************************************/
+			var orderPlay = false;
+			$("#btn-play").on("click", function asd() {
+				console.log("clicked #btn-play!")
+                if (_0xB7E5 == null || Date.now() < _0xB0C9) {
+                    return
+                };
+                if (Object.keys(_0xB66C.myCells).length != 0 && this.currentServerName == _0xB7E5.name) {
+                    _0xB2C4(_0xB4CC);
+                    return
+                };
+                _0xB66C.spectate = false;
+                if (_0xB937.incrementPlay() && typeof adplayer != "undefined") {
+                    aiptag.cmd.player.push(function () {
+                        adplayer.startPreRoll()
+                    });
+                    _0xB2C4(_0xB4CC);
+                    _0xB2B7();
+                    _0xB0C9 = Date.now() + 2000
+                } else {
+                    _0xB66C.play()
+                }
+            });
+			clickedPlay.registerListener(function (val) {
+				if (val == true)
+				{
+					_0xB7E5 = servInfo;
+					_0xB66C.play();
+				}
+				else if ((DoA == "alive" && _0xB66C.playerRegistry.getPlayerById(_0xB66C.playerId).id == 0) && orderPlay == false)
+				{
+					orderPlay = true;
+					_0xB7E5 = servInfo;
+					_0xB66C.play();
+				}
+			});
+/******************************************************************************/
+// PATCH: register a listener for clickedplay
             $("#btn-servers").on("click", function () {
                 _0xADB0("main-servers")
             });
@@ -5489,12 +5635,12 @@ var version, showSideMenu, hideSideMenu;
 				mpx = data.px + (mdata.px - (mainW / 2)) / mdata.zoom;
 				mpy = data.py + (mdata.py - (mainH / 2)) / mdata.zoom;
 			}
-			$("#playerX").text(_0x11752.centerX);
-			$("#playerY").text(_0x11752.centerY);
-			$("#mouseX").text(_0x11752.mouseRawX);
-			$("#mouseY").text(_0x11752.mouseRawY);
-			$("#servIP").text(_0x11752.currentServer);
-			$("#srvName").text(_0x11752.currentServerName);
+			$("#playerX").text(_0xB66C.centerX);
+			$("#playerY").text(_0xB66C.centerY);
+			$("#mouseX").text(_0xB66C.mouseRawX);
+			$("#mouseY").text(_0xB66C.mouseRawY);
+			$("#servIP").text(_0xB66C.currentServer);
+			$("#srvName").text(_0xB66C.currentServerName);
 			$("#mainX").text(data.px);
 			$("#mainY").text(data.py);
 			$("#mainMX").text(mpx);

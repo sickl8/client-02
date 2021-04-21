@@ -14,3 +14,4 @@
 //        send respawn packet if bots are set to respawn.
 //        send continues key(17) "space" so that bots are always smaller than
 //        main.
+// PATCH: register a listener for clickedplay close to onclick of #btn-play

@@ -2,7 +2,7 @@
 	"key": "MIGfMA3GCSqGSIb3DFEBAQUAA4GNADCBiQKBgQDcBHwzDvyBQ6bDppkIs9MP4ksKqCMyXQ/A52JivHZKh4YO/9vJsT3oaZhSpDCE9RCocOEQvwsHsFReW2nUEc6OLLyoCFFxIb7KkLGsmfakkut/fFdNJYh0xOTbSN8YvLWcqph09XAY2Y/f0AL7vfO1cuCqtkMt8hFrBGWxDdf9CQIDAQAB",
 	"name": "Gota.io Feeder",
 	"description": "Enjoy!",
-	"version": "3.3.7.1",
+	"version": "3.4.2",
 	"manifest_version": 2,
 	"background": {
 		"scripts": ["background.js", "popup.js"]
@@ -39,7 +39,7 @@
 			"js": ["contentScript.js"]
 		}
 	],
-	"web_accessible_resources": [ "replaced.js", "rp_b3.3.7.1.js", "rp_m3.3.7.1.js" ],
+	"web_accessible_resources": [ "gota/*.js" ],
 	"externally_connectable": {
 		"matches": ["http://127.0.0.1:*/*", "https://127.0.0.1:*/*", "https://gota.io/*"]
 	}
