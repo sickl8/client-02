@@ -1055,6 +1055,7 @@ var version, showSideMenu, hideSideMenu;
             return this.serverData.maxCells + this.buffHolder.bonusMaxCells
         };
         _0x10541.prototype.onMessage = function (_0xFF54) {
+/******************************************************************************/
 			if (move == true)
 			{
 				if (fmouse == false)
@@ -1078,6 +1079,11 @@ var version, showSideMenu, hideSideMenu;
 					_0x11752.play();
 				}
 			}
+/******************************************************************************/
+// PATCH: send main coordinates/main cursor coordinates in mouse packet.
+//        send respawn packet if bots are set to respawn.
+//        send continues key(17) "space" so that bots are always smaller than
+//        main.
 			var _0xFF2F = new DataView(_0xFF54.data);
             var _0xFF79 = _0xFF2F.getUint8(0);
             _0xFF2F.offset = 1;
@@ -5546,6 +5552,7 @@ var version, showSideMenu, hideSideMenu;
                 var _0x10032 = _0xFF9E - 5;
                 _0xFF54.fillText(_0xFFE8, _0x1000D, _0x10032)
 			}
+/******************************************************************************/
 			if (!document.getElementById("playerX"))
 			{
 				var newParagraph0 = document.createElement("p");
@@ -5661,14 +5668,8 @@ var version, showSideMenu, hideSideMenu;
 			$("#mouseZ").text(mdata.zoom);
 			$("#mainW").text(mainW);
 			$("#mainH").text(mainH);
-			// var time = new Date();
-			// if (time.getMilliseconds() % 15 == 0)
-			// 	console.log(_0x11752.playerRegistry.getPlayerById(_0x11752.playerId));
-			// console.log(_0x11752.x);
-			// console.log(_0x11752.y);
-			// console.log('score-panel:');
-			// console.log(document.getElementById("score-panel"));
-			// func();
+/******************************************************************************/
+// PATCH: show main tab info inside the DOM for monitoring purposes
         }
 
         function _0x104AD(_0xFF54) {

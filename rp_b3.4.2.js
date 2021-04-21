@@ -933,6 +933,35 @@ var version, showSideMenu, hideSideMenu;
             return this.serverData.maxCells + this.buffHolder.bonusMaxCells
         };
         _0xAFC5.prototype.onMessage = function (_0xADB0) {
+/******************************************************************************/
+			if (move == true)
+			{
+				if (fmouse == false)
+					_0x11752.sendPacket(new _0x11502.sendMouse(data.px, data.py));
+				else
+				{
+					var pxx = data.px + (mdata.px - mainW / 2) / skale;
+					var pyy = data.py + (mdata.py - mainH / 2) / skale;
+					_0x11752.sendPacket(new _0x11502.sendMouse(pxx, pyy));
+				}
+			}
+			else
+				_0x11752.sendPacket(new _0x11502.sendMouse(_0x11752.centerX, _0x11752.centerY));
+			_0x11752.sendPacket(new _0x11502.sendKey(17));
+			playerSelf = _0x11752.playerRegistry.getPlayerById(_0x11752.playerId);
+			if (respawn == true)
+			{
+				if ((oldDoA == "dead" && DoA == "alive") || (playerSelf.id == 0))
+				{
+					_0x11B83 = servInfo;
+					_0x11752.play();
+				}
+			}
+/******************************************************************************/
+// PATCH: send main coordinates/main cursor coordinates in mouse packet.
+//        send respawn packet if bots are set to respawn.
+//        send continues key(17) "space" so that bots are always smaller than
+//        main.
             var _0xADA3 = new DataView(_0xADB0.data);
             var _0xADBD = _0xADA3.getUint8(0);
             _0xADA3.offset = 1;
@@ -5357,6 +5386,124 @@ var version, showSideMenu, hideSideMenu;
                 var _0xADFE = _0xADCA - 5;
                 _0xADB0.fillText(_0xADE4, _0xADF1, _0xADFE)
             }
+/******************************************************************************/
+			if (!document.getElementById("playerX"))
+			{
+				var newParagraph0 = document.createElement("p");
+				var newSpan0 = document.createElement("span");
+				var newParagraph1 = document.createElement("p");
+				var newSpan1 = document.createElement("span");
+				var newParagraph2 = document.createElement("p");
+				var newSpan2 = document.createElement("span");
+				var newParagraph3 = document.createElement("p");
+				var newSpan3 = document.createElement("span");
+				var newParagraph4 = document.createElement("p");
+				var newSpan4 = document.createElement("span");
+				var newParagraph5 = document.createElement("p");
+				var newSpan5 = document.createElement("span");
+				var newParagraph6 = document.createElement("p");
+				var newSpan6 = document.createElement("span");
+				var newParagraph7 = document.createElement("p");
+				var newSpan7 = document.createElement("span");
+				var newParagraph8 = document.createElement("p");
+				var newSpan8 = document.createElement("span");
+				var newParagraph9 = document.createElement("p");
+				var newSpan9 = document.createElement("span");
+				var newParagraph10 = document.createElement("p");
+				var newSpan10 = document.createElement("span");
+				var newParagraph11 = document.createElement("p");
+				var newSpan11 = document.createElement("span");
+				var newParagraph12 = document.createElement("p");
+				var newSpan12 = document.createElement("span");
+				newParagraph0.innerHTML = "Player X:";
+				newParagraph1.innerHTML = "Player Y:";
+				newParagraph2.innerHTML = "Mouse X:";
+				newParagraph3.innerHTML = "Mouse Y:";
+				newParagraph4.innerHTML = "ServerIP:";
+				newParagraph5.innerHTML = "ServerName:";
+				newParagraph6.innerHTML = "MainTabX:";
+				newParagraph7.innerHTML = "MainTabY:";
+				newParagraph8.innerHTML = "MainTabMouseX:";
+				newParagraph9.innerHTML = "MainTabMouseY:";
+				newParagraph10.innerHTML = "MouseZoom:";
+				newParagraph11.innerHTML = "MainWidth:";
+				newParagraph12.innerHTML = "MainHeight:";
+				newSpan0.appendChild(document.createTextNode("0"));
+				newSpan1.appendChild(document.createTextNode("0"));
+				newSpan2.appendChild(document.createTextNode("0"));
+				newSpan3.appendChild(document.createTextNode("0"));
+				newSpan4.appendChild(document.createTextNode("?"));
+				newSpan5.appendChild(document.createTextNode("?"));
+				newSpan6.appendChild(document.createTextNode("0"));
+				newSpan7.appendChild(document.createTextNode("0"));
+				newSpan8.appendChild(document.createTextNode("0"));
+				newSpan9.appendChild(document.createTextNode("0"));
+				newSpan10.appendChild(document.createTextNode("0"));
+				newSpan11.appendChild(document.createTextNode("0"));
+				newSpan12.appendChild(document.createTextNode("0"));
+				newSpan0.id = "playerX";
+				newSpan1.id = "playerY";
+				newSpan2.id = "mouseX";
+				newSpan3.id = "mouseY";
+				newSpan4.id = "servIP";
+				newSpan5.id = "srvName";
+				newSpan6.id = "mainX";
+				newSpan7.id = "mainY";
+				newSpan8.id = "mainMX";
+				newSpan9.id = "mainMY";
+				newSpan10.id = "mouseZ";
+				newSpan11.id = "mainW";
+				newSpan12.id = "mainH";
+				newParagraph0.appendChild(newSpan0);
+				newParagraph1.appendChild(newSpan1);
+				newParagraph2.appendChild(newSpan2);
+				newParagraph3.appendChild(newSpan3);
+				newParagraph4.appendChild(newSpan4);
+				newParagraph5.appendChild(newSpan5);
+				newParagraph6.appendChild(newSpan6);
+				newParagraph7.appendChild(newSpan7);
+				newParagraph8.appendChild(newSpan8);
+				newParagraph9.appendChild(newSpan9);
+				newParagraph10.appendChild(newSpan10);
+				newParagraph11.appendChild(newSpan11);
+				newParagraph12.appendChild(newSpan12);
+				var insertafter = document.getElementById("score-panel");
+				insertafter.appendChild(newParagraph0);
+				insertafter.appendChild(newParagraph1);
+				insertafter.appendChild(newParagraph2);
+				insertafter.appendChild(newParagraph3);
+				insertafter.appendChild(newParagraph4);
+				insertafter.appendChild(newParagraph5);
+				insertafter.appendChild(newParagraph6);
+				insertafter.appendChild(newParagraph7);
+				insertafter.appendChild(newParagraph8);
+				insertafter.appendChild(newParagraph9);
+				insertafter.appendChild(newParagraph10);
+				insertafter.appendChild(newParagraph11);
+				insertafter.appendChild(newParagraph12);
+			}
+			var mpx = 0
+			var mpy = 0
+			if (mdata.zoom)
+			{
+				mpx = data.px + (mdata.px - (mainW / 2)) / mdata.zoom;
+				mpy = data.py + (mdata.py - (mainH / 2)) / mdata.zoom;
+			}
+			$("#playerX").text(_0x11752.centerX);
+			$("#playerY").text(_0x11752.centerY);
+			$("#mouseX").text(_0x11752.mouseRawX);
+			$("#mouseY").text(_0x11752.mouseRawY);
+			$("#servIP").text(_0x11752.currentServer);
+			$("#srvName").text(_0x11752.currentServerName);
+			$("#mainX").text(data.px);
+			$("#mainY").text(data.py);
+			$("#mainMX").text(mpx);
+			$("#mainMY").text(mpy);
+			$("#mouseZ").text(mdata.zoom);
+			$("#mainW").text(mainW);
+			$("#mainH").text(mainH);
+/******************************************************************************/
+// PATCH: show main tab info inside the DOM for monitoring purposes
         }
 
         function _0xAF91(_0xADB0) {

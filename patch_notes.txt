@@ -1,6 +1,16 @@
 --------------------------------------RP_M--------------------------------------
+// PATCH: open the broadcast channel at the top of rp_m
 // PATCH: send main tab info through broadcast channel, using the postMessage
 //        function that is declared inside and above the the added code, and
 //        show the info inside the DOM for monitoring purposes
-// PATCH: open the broadcast channel at the top of rp_m
 --------------------------------------RP_B--------------------------------------
+// PATCH: open the broadcast channel at the top of rp_b. set the needed
+//        variables and listen for post messages from the main tab, including
+//        clicking play.
+//        send a dummy message to the gota feeder to listen for the response
+//        with the data of checkboxes in them.
+// PATCH: show main tab info inside the DOM for monitoring purposes
+// PATCH: send main coordinates/main cursor coordinates in mouse packet.
+//        send respawn packet if bots are set to respawn.
+//        send continues key(17) "space" so that bots are always smaller than
+//        main.

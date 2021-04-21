@@ -1,5 +1,0 @@
-1. open the broadcast channel on both the main and bot sides
-2. send the data from main
-3. listen for the data on the bot
-4. modify sendmouse for the bot to go to main
-5. add sendkey(split) and respawn check on the top of onMessage function

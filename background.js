@@ -2,6 +2,8 @@
 
 let id = 0;
 
+let version = "3.4.2";
+
 let btn;
 
 chrome.runtime.onInstalled.addListener
@@ -36,22 +38,22 @@ function redirect_to_replaced(details) {
 	console.log('please work btn = ' + btn);
 	if (btn == "M")
 	{
-		if (details.url == "https://gota.io/web/gota.js?v=3.3.7.1") {
+		if (details.url == "https://gota.io/web/gota.js?v=" + version) {
 			chrome.storage.sync.set({"LBC": null});
 			console.log('test');
 			console.log('test ' + id);
 			id++;
-			return { redirectUrl: chrome.extension.getURL("rp_m3.3.7.1.js") }
+			return { redirectUrl: chrome.extension.getURL("rp_m" + version + ".js") }
 		}
 	}
 	else if (btn == "B")
 	{
-		if (details.url == "https://gota.io/web/gota.js?v=3.3.7.1") {
+		if (details.url == "https://gota.io/web/gota.js?v=" + version) {
 			chrome.storage.sync.set({"LBC": null});
 			console.log('test');
 			console.log('test ' + id);
 			id++;
-			return { redirectUrl: chrome.extension.getURL("rp_b3.3.7.1.js") }
+			return { redirectUrl: chrome.extension.getURL("rp_b" + version + ".js") }
 		}
 	}
 }
@@ -64,28 +66,11 @@ chrome.webRequest.onBeforeRequest.addListener(
 
 chrome.runtime.onMessageExternal.addListener(
 	function(request, sender, sendResponse) {
-		console.log("request");
-		console.log(request);
-		console.log("sender");
-		console.log(sender);
-		console.log("sendResponse");
-		console.log(sendResponse);
 		chrome.storage.sync.get(["move", "fmouse", "respawn"], (data) => {
 			sendResponse({"fmouse": data.fmouse, "move": data.move, "respawn": data.respawn});
 		});
-		// await new Promise(r => setTimeout(r, 100));
-		// sendResponse({"fmouse": vfmouse, "move": vmove, "respawn": vrespawn});
 		return true;
 });
-// chrome.webRequest.onBeforeRequest.addListener(
-// 		function(details) {
-// 			if( details.url == "http://127.0.0.1:5500/js-mouse/files/js.js" ) {
-// 				console.log('waaaaaaaaaaaa!!!');
-// 				return {redirectUrl: "http://127.0.0.1:5500/js-mouse/files/edited.js" };
-// 			}
-// 		},
-// 		{urls: ["*://127.0.0.1/*.js"]},
-// 		["blocking"]);
 
 console.log('called');
 
